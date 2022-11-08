@@ -1,14 +1,15 @@
-package org.example.uppgift2a;
+package org.example.uppgift2;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.net.InetAddress;
+
 
 public class QuoteReceiver {
 
     public QuoteReceiver() throws IOException {
-        int port = 44444;
+        int port = 40000;
         DatagramSocket ds = new DatagramSocket(port);
 
         // spelar inte så jätte stor roll hur stor array
@@ -31,6 +32,26 @@ public class QuoteReceiver {
             // dgp.getLength() == Returns the length of the data received
             String quote = new String(dgp.getData(), 0, dgp.getLength());
             System.out.println(quote);
+
+            sendKvittens(quote);
+        }
+    }
+    private void sendKvittens(String quote) {
+        if(quote != null) {
+            try {
+                int port = 55555;
+                DatagramSocket kvittensSocket = new DatagramSocket();
+                InetAddress ip = InetAddress.getLocalHost();
+                String message = "Receiver Mottog: " + quote + "\n";
+                byte[] data = message.getBytes();
+                DatagramPacket kvittensPaket = new DatagramPacket(data, 0, data.length, ip, port);
+
+                // kan jag använda lyssnarens DatagramSocket för att skicka tbx ?
+                kvittensSocket.send(kvittensPaket);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
