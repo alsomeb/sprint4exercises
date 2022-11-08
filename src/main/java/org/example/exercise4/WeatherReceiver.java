@@ -18,7 +18,8 @@ public class WeatherReceiver extends JFrame {
     public WeatherReceiver(int port) throws IOException {
         this.port = port;
 
-        // Socket helst skapas utanför loopen, port som vi skrev in i Main metod återanvänds för denna DatagramSocket
+        // Socket helst skapas utanför loopen där den lyssnar efter ink paket (nedan)
+        // port som vi skrev in i Main metod återanvänds för denna DatagramSocket
         //DatagramSocket receiverSocket = new DatagramSocket(port);
 
         // MULTICAST METOD Adresser från 224.0.0.1 - 239.255.255.255
