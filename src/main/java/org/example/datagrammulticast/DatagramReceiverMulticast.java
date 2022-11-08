@@ -23,7 +23,7 @@ public class DatagramReceiverMulticast {
         InetSocketAddress group = new InetSocketAddress(inetAddress, portListen);
 
         // kör Sigrun program så vet man namnet, jag har wlan1
-        NetworkInterface netIf = NetworkInterface.getByName("wlan1");
+        NetworkInterface netIf = NetworkInterface.getByName("eth2");
 
         ds.joinGroup(group, netIf);
 
