@@ -6,7 +6,7 @@ import java.net.InetAddress;
 
 public class QuoteSender {
 
-    public QuoteSender() throws IOException, InterruptedException {
+    public QuoteSender() throws IOException {
         // För att kunna skriva med tangentbordet i terminalen
         // BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
