@@ -23,9 +23,12 @@ public class Chat extends JFrame implements ActionListener {
     private int port;
     private MulticastSocket multicastSocket;
     private InetSocketAddress group;
-    private NetworkInterface netIf = NetworkInterface.getByName("eth2");
+    private NetworkInterface netIf = NetworkInterface.getByName("wlan1");
 
-    public Chat(int port, String grpAdress) throws IOException {
+    private String chatName;
+
+    public Chat(int port, String grpAdress, String chatName) throws IOException {
+        this.chatName = chatName;
         this.port = port;
         ip = InetAddress.getByName(grpAdress);
         group = new InetSocketAddress(ip, port);
@@ -83,16 +86,17 @@ public class Chat extends JFrame implements ActionListener {
     private void receive() {
         byte[] collectedData = new byte[1024];
 
-        while (true) {
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-                String nowTime = LocalDateTime.now().format(formatter);
+        DatagramPacket paket = new DatagramPacket(collectedData, collectedData.length);
 
-                DatagramPacket paket = new DatagramPacket(collectedData, collectedData.length);
+        while (true) {
+            // Stringen för tiden måste va i loopen annars uppdateras inte tiden dynamiskt!
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+            String nowTime = LocalDateTime.now().format(formatter);
+            try {
                 multicastSocket.receive(paket);
                 String message = new String(paket.getData(), 0, paket.getLength());
-                textArea.append(nowTime + ": " + message + "\n");
-                System.out.println(nowTime + ": " + message + "\n");
+                textArea.append(nowTime + " - " + message + "\n");
+                System.out.println(nowTime + " - " + message + "\n");
 
             } catch (IOException e) {
                 break;
@@ -104,8 +108,18 @@ public class Chat extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(inputField)) {
-            send(inputField.getText());
+            send(chatName + ": " + inputField.getText());
             inputField.setText("");
+        } else if (e.getSource().equals(disconnectBtn)) {
+            try {
+                send("CHATTEN NEDKOPPLAD");
+                multicastSocket.leaveGroup(group, netIf);
+                disconnectBtn.setText("Chat Nedkopplad!");
+                inputField.setText("Chatten är nedkopplad, starta om program för att chatta");
+            } catch (IOException ex) {
+                // if there is an error leaving or when the address is not a multicast address.
+                JOptionPane.showMessageDialog(null, "Kan ej stänga chatten!");
+            }
         }
     }
 }

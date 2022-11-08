@@ -37,7 +37,7 @@ public class QuoteSender {
             // Skicka varje 3 sek
             //Thread.sleep(3000);
 
-            // Måste ha en annan receiver med annan port
+            // Måste ha en annan receiver med annan port, får bara ha en socket igång med samma port
             receiveKvittens(kvittensSocket);
 
             counter++;
