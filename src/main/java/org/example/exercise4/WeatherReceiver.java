@@ -22,6 +22,8 @@ public class WeatherReceiver extends JFrame {
         // port som vi skrev in i Main metod återanvänds för denna DatagramSocket
         //DatagramSocket receiverSocket = new DatagramSocket(port);
 
+        textArea.setLineWrap(true);
+
         // MULTICAST METOD Adresser från 224.0.0.1 - 239.255.255.255
         MulticastSocket receiverMulticastSocket = new MulticastSocket(port);
         InetAddress inetAddress = InetAddress.getByName("234.234.234.234");
@@ -39,7 +41,7 @@ public class WeatherReceiver extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        this.setTitle("Weather Leffe");
+        this.setTitle("Weather Receiver");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // receive Data, UDP
