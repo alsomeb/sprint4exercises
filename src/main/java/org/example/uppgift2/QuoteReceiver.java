@@ -42,7 +42,7 @@ public class QuoteReceiver {
                 int port = 55555;
                 DatagramSocket kvittensSocket = new DatagramSocket();
                 InetAddress ip = InetAddress.getLocalHost();
-                String message = "Receiver Mottog: " + quote + "\n";
+                String message = "Leffe Mottog: " + quote + "\n";
                 byte[] data = message.getBytes();
                 DatagramPacket kvittensPaket = new DatagramPacket(data, 0, data.length, ip, port);
 

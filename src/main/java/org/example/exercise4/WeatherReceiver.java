@@ -39,7 +39,7 @@ public class WeatherReceiver extends JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        this.setTitle("Weather Receiver");
+        this.setTitle("Weather Leffe");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // receive Data, UDP
