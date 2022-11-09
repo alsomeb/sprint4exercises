@@ -1,4 +1,4 @@
-package org.example.exercise2kvittenskorrekt;
+package org.example.uppgift2kvittenskorrekt;
 
 import java.io.IOException;
 
