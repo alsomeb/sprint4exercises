@@ -8,21 +8,10 @@ import java.net.InetAddress;
 
 
 public class Sender {
-    final static String quote1 = "Dreams and deception is a powerful combination";
-    final static String quote2 = "Whatever your're thinking, think bigger.";
-    final static String quote3 = "Maybe swearing will help?";
-
     final static String[] quotes = {"Du är vad du äter", "Im the captain now", "Vad heter du ?", "Alex heter jag"};
 
 
     public static void main(String[] args) throws IOException, InterruptedException {
-/*        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        List<String> quoteList = new ArrayList<>();
-        quoteList.add(quote1);
-        quoteList.add(quote2);
-        quoteList.add(quote3);
-        int listCounter = 0;*/
-
         int index = quotes.length - 1; // pga indexering
         int counter = 0;
 
@@ -32,11 +21,9 @@ public class Sender {
         DatagramSocket socket = new DatagramSocket(recPort);
 
         while(counter <= index){
-            //byte[] data = quoteList.get(listCounter).getBytes();
             byte[] data = quotes[counter].getBytes();
             DatagramPacket packet = new DatagramPacket(data, data.length, toAdr, sendPort);
             socket.send(packet);
-            //listCounter = (listCounter + 1) % 3;
 
 
             // behövde skapa en ny byte array för receive, annars kapade den bokstäver i svaret
