@@ -32,6 +32,10 @@ public class GenericQueue <T extends Number> implements GenericsQueueInterface<T
 /*
 DENNA ÄR KRÅNGLIG KÖR DEN OVAN
 
+      // Kanske kolla hela listan istället för första element i den!
+      //  if (innerList instanceof List<Integer>)
+      //  if (innerList<T> instanceof List<Integer>)
+
     public T calcSumOfNumbersInQueue() throws NullPointerException{
         try {
             if (queue.get(0) instanceof Integer) {
