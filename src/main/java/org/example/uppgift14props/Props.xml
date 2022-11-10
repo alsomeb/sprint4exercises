@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>Här är mina props nedan</comment>
+    <entry key="buttonText">Inläst från XML filen</entry>
+    <entry key="buttonColor">#FEBE8C</entry>
+</properties>
