@@ -32,8 +32,8 @@ public class ReadFromUrl {
 
 
         // With toMap, we can indicate strategies for how to get the key and value for the map
-        Map<Object, Object> wordsAndLength = words.stream()
-                        .collect(Collectors.toMap(word -> word, count -> count.length()));
+        Map<String, Integer> wordsAndLength = words.stream()
+                        .collect(Collectors.toMap(word -> word, countLetters -> countLetters.length()));
 
         wordsAndLength.forEach((k , v) -> System.out.println(k + " - letters: " + v));
 
@@ -52,9 +52,9 @@ public class ReadFromUrl {
             Return value: It returns a collector as a map.
          */
 
-        Map<Integer, List<String>> wordCount = words.stream()
+        /*Map<Integer, List<String>> wordCount = words.stream()
                 .collect(Collectors.groupingBy(word -> word.length()));
-        wordCount.forEach((k, v) -> System.out.println("Length of word: " + k + " word: " + v.get(0)));
+        wordCount.forEach((k, v) -> System.out.println("Length of word: " + k + " word: " + v.get(0)));*/
 
     }
 
