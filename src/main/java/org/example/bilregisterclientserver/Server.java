@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.NoSuchElementException;
@@ -32,8 +34,18 @@ public class Server {
 
             // READ (BufferedReader)
             while ((clientRequest = in.readLine()) != null) {
-                System.out.println(socket.getRemoteSocketAddress().toString().replace("/", "")
-                        + " - Request: " + clientRequest);
+                // the getRemoteSocketAddress method returns an object of type SocketAddress.
+                // This is an abstract Java class. In this instance, we know it's a TCP/IP connection, so we can cast it to InetSocketAddress:
+                InetSocketAddress socketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+
+                // As we've already seen, a socket address is a combination of an IP address and port number.
+                // We can use getAddress to get the IP address. This returns an InetAddress object.
+                // However, we can also use getHostAddress to get a string representation of the IP address:
+                String clientIpAddress = socketAddress.getAddress()
+                        .getHostAddress();
+
+                // Now we can display client IP + request
+                System.out.println(clientIpAddress + " - Request: " + clientRequest);
 
                 // WRITE (PrintWriter)
                 searchByRegNr(clientRequest, ut);
