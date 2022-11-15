@@ -1,8 +1,10 @@
-package org.example.uppgift5;
+package org.example.uppgift567;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class User {
+//MÅSTE impl serializable om man skickar dessa POJO:s
+public class User implements Serializable {
     private String fullName;
     private String address;
     private String mobile;
@@ -14,6 +16,10 @@ public class User {
         this.address = address;
         this.mobile = mobile;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getUserData() {
+        return fullName + " " + dateOfBirth + " " + address + " " + mobile;
     }
 
     public String getFullName() {
