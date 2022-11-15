@@ -30,16 +30,8 @@ public class Server {
                 System.out.println(timestamp() + " - " + clientMessage);
 
                 // Response to Client
-                // Serialised Objekt skickas istället
-                try {
-                    User foundUser = new FakeDatabase().findByFullName((String) clientMessage);
-                    // Wrap User i en Response Object
-                    ut.writeObject(new Response(true, foundUser, ""));
-                    ut.flush();
-                } catch (NoSuchElementException ex) {
-                    ut.writeObject(new Response(false, null, ex.getMessage()));
-                    ut.flush();
-                }
+                // Serialised Objekt skickas mha ObjectOutputStream i metod nedan
+                sendResponse(clientMessage, ut);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,6 +47,18 @@ public class Server {
         // Timestamp
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return LocalDateTime.now().format(formatter);
+    }
+
+    private void sendResponse(Object clientMessage, ObjectOutputStream ut) throws IOException {
+        try {
+            User foundUser = new FakeDatabase().findByFullName((String) clientMessage);
+            // Wrap User i en Response Object
+            ut.writeObject(new Response(true, foundUser, ""));
+            ut.flush();
+        } catch (NoSuchElementException ex) {
+            ut.writeObject(new Response(false, null, ex.getMessage()));
+            ut.flush();
+        }
     }
 
 /*    private String getUserByName(String name) {
