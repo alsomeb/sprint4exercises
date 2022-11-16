@@ -1,5 +1,6 @@
 package org.example.uppgift5678;
 
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 public class Protocol {
@@ -24,7 +25,7 @@ public class Protocol {
 
         // Kommer aldrig direkt hamna här men vi måste ha denna enligt Java
         // eller kasta ett fel
-        return new Response(false, null, "State error");
+        return new Response(false, null, "State error", LocalDateTime.now());
     }
 
     private Response sendResponse(Object clientMessage) {
@@ -32,9 +33,9 @@ public class Protocol {
             // Den trimmas i DB metoden
             User foundUser = db.findByFullName((String) clientMessage);
             // Wrap User i en Response Object
-            return new Response(true, foundUser, "");
+            return new Response(true, foundUser, "", LocalDateTime.now());
         } catch (NoSuchElementException ex) {
-            return new Response(false, null, ex.getMessage());
+            return new Response(false, null, ex.getMessage(), LocalDateTime.now());
         }
     }
 }

@@ -4,8 +4,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 
 public class Client {
@@ -46,10 +45,10 @@ public class Client {
                     // pattern matching variable,
                     // om denna current user får matchning så kan jag använda variabeln!
                     if(response.isFound()) {
-                        System.out.println(timestamp() + " - SERVER: " + response.foundUser().getUserData());
+                        System.out.println(response.timestampPretty() + " - SERVER: " + response.foundUser().getUserData());
                     } else {
                         // Här finns blir det null på user men vi får en Sträng av error msg, från DB
-                        System.out.println(timestamp() + " - SERVER: " + response.errorMsg());
+                        System.out.println(response.timestampPretty() + " - SERVER: " + response.errorMsg());
                     }
                 }
 
@@ -58,7 +57,7 @@ public class Client {
                 userTyped = userInput.readLine();
                 ut.writeObject(userTyped);
                 ut.flush();
-                System.out.println(timestamp() + " - Sent request: " + userTyped);
+                System.out.println("Sent request: " + userTyped);
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -67,13 +66,7 @@ public class Client {
         }
     }
 
-    // Best practice i en metod annars kanske inte tiden uppdateras!
-    // Har kod duplication på denna i Server så till nästa gång kanske göra en Service Klass
-    private String timestamp() {
-        // Timestamp
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return LocalDateTime.now().format(formatter);
-    }
+
 
     public static void main(String[] args) {
         try {

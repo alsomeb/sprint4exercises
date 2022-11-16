@@ -44,10 +44,8 @@ public class Server {
         }
     }
 
-    // Best practice i en metod annars kanske inte tiden uppdateras!
-    // Har kod duplication på denna i Server så till nästa gång kanske göra en Service Klass
+    // Bara response objektet som får timestamp, så vi måste ha en här också för logging i servern
     private String timestamp() {
-        // Timestamp
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return LocalDateTime.now().format(formatter);
     }
