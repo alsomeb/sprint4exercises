@@ -16,7 +16,6 @@ public class Server {
         // Vilket ObjectOutputStream sköter
         try(ServerSocket serverSocket = new ServerSocket(port);
             Socket socket = serverSocket.accept();
-            //PrintWriter ut = new PrintWriter(socket.getOutputStream(), true);
             ObjectOutputStream ut = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream()))
         {
