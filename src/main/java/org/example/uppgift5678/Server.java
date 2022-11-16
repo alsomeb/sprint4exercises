@@ -32,7 +32,7 @@ public class Server {
 
                 // Response to Client
                 // Serialised Objekt skickas mha ObjectOutputStream i metod nedan
-                // Protocol hanterar logic
+                // Protocol hanterar business logic och de som skall skickas till client
                 ut.writeObject(protocol.getOutput(clientMessage));
                 ut.flush();
             }
