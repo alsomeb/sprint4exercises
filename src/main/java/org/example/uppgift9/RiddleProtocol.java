@@ -53,7 +53,7 @@ public class RiddleProtocol {
 
         } else if (currentState.equals(State.ANOTHER)) {
             if (input.equalsIgnoreCase("Y")) {
-                try {
+                try {  // Får vi Index Out of Bounds så har man solved alla riddles!
                     currentRiddle++;
                     output = riddles[currentRiddle];
                     currentState = State.SENTRIDDLE;
