@@ -1,4 +1,4 @@
-package org.example.uppgift567;
+package org.example.uppgift5678;
 
 import java.util.NoSuchElementException;
 
