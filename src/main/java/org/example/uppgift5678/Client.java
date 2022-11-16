@@ -19,8 +19,6 @@ public class Client {
         // Vi använder oss av Object strömmar som vi sedan packar upp och sorterar samt skickar iväg objects
         // Detta istället för PrintWriter som skickade Strings innan
         try(Socket clientSocket = new Socket(ip, port);
-            //PrintWriter ut = new PrintWriter(clientSocket.getOutputStream(), true);
-            //BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
             ObjectOutputStream ut = new ObjectOutputStream(clientSocket.getOutputStream());
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in)))
