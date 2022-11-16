@@ -5,10 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.NoSuchElementException;
 
 public class Server {
 
+    Protocol protocol = new Protocol();
     private final int port = 55555;
 
     public Server() {
@@ -22,7 +22,8 @@ public class Server {
         {
 
             // Skickar ett objekt som säger att vi är connected med Client
-            ut.writeObject(new Intro(true));
+            // behöver ej skicka in något och vi kommer ej kolla av något heller!
+            ut.writeObject(protocol.getOutput(null));
 
             Object clientMessage;
             while ((clientMessage = in.readObject()) != null) {
@@ -31,7 +32,9 @@ public class Server {
 
                 // Response to Client
                 // Serialised Objekt skickas mha ObjectOutputStream i metod nedan
-                sendResponse(clientMessage, ut);
+                // Protocol hanterar logic
+                ut.writeObject(protocol.getOutput(clientMessage));
+                ut.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,28 +51,6 @@ public class Server {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
         return LocalDateTime.now().format(formatter);
     }
-
-    private void sendResponse(Object clientMessage, ObjectOutputStream ut) throws IOException {
-        try {
-            User foundUser = new FakeDatabase().findByFullName((String) clientMessage);
-            // Wrap User i en Response Object
-            ut.writeObject(new Response(true, foundUser, ""));
-            ut.flush();
-        } catch (NoSuchElementException ex) {
-            ut.writeObject(new Response(false, null, ex.getMessage()));
-            ut.flush();
-        }
-    }
-
-/*    private String getUserByName(String name) {
-        try {
-            User found = new FakeDatabase().findByFullName(name);
-            return found.getFullName() + " " + found.getDateOfBirth() + " " + found.getMobile()
-                    + " " + found.getAddress();
-        } catch (NoSuchElementException ex) {
-            return ex.getMessage();
-        }
-    }*/
 
     public static void main(String[] args) {
         new Server();
