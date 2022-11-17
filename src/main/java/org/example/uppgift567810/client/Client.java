@@ -1,4 +1,7 @@
-package org.example.uppgift5678;
+package org.example.uppgift567810.client;
+
+import org.example.uppgift567810.server.Intro;
+import org.example.uppgift567810.server.Response;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -40,12 +43,12 @@ public class Client {
                         System.out.println("Förbindelse Upprättad");
                     }
                 } else if (serverResponse instanceof Response response) {
-                    // pattern matching variable,
-                    // om denna current user får matchning så kan jag använda variabeln!
+                    // pattern matching variable "response",
+                    // om denna response går att matcha så kan jag använda variabeln!
                     if(response.isFound()) {
                         System.out.println(response.timestampPretty() + " - SERVER: " + response.foundUser().getUserData());
                     } else {
-                        // Här finns blir det null på user men vi får en Sträng av error msg, från DB
+                        // Här blir det null på user i response men vi har en Sträng tillgänglig i objektet error msg, från DB
                         System.out.println(response.timestampPretty() + " - SERVER: " + response.errorMsg());
                     }
                 }

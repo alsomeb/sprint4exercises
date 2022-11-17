@@ -1,4 +1,4 @@
-package org.example.uppgift5678;
+package org.example.uppgift567810.server;
 
 import java.io.Serializable;
 import java.time.LocalDate;
